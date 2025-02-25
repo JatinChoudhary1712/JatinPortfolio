@@ -21,8 +21,9 @@ const Chatbot: React.FC = () => {
     setChatHistory((prev) => [...prev, { sender: 'User', text: userMessage }]);
 
     try {
-      // 2. Send message to your backend API
-      const response = await axios.post('http://localhost:4000/api/chat', {
+      // 2. Send message to your backend API using environment variable
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+      const response = await axios.post(`${apiUrl}/api/chat`, {
         message: userMessage,
       });
 
