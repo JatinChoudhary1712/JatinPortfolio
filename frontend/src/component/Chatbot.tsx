@@ -15,7 +15,9 @@ const Chatbot: React.FC = () => {
   const [userMessage, setUserMessage] = useState<string>('');
   const [chatHistory, setChatHistory] = useState<Message[]>([]);
   const [isVisible, setIsVisible] = useState<boolean>(true);
-  const BACKEND_URL = 'https://your-render-service-url.onrender.com';  // Replace with your Render URL
+  const BACKEND_URL = process.env.NODE_ENV === 'production' 
+    ? 'https://jatinportfoliobackend.onrender.com'  // Updated Render URL
+    : 'http://localhost:4000';  // Use localhost for development
 
   const handleSend = async () => {
     if (!userMessage.trim()) return;
