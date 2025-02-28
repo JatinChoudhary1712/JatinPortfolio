@@ -1,6 +1,5 @@
 import React from 'react';
 import Chatbot from './component/Chatbot';
-import manaliImage from "./images/manali.JPG";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord } from "@fortawesome/free-brands-svg-icons";
@@ -26,6 +25,9 @@ import {
 } from 'lucide-react';
 
 function App() {
+  // Add default profile image URL
+  const profilePic = "https://assets.leetcode.com/users/jatinchoudhary1712/avatar_1720715121.png"; // You can replace this with your actual profile picture URL
+  
   const skills = [
     { name: 'JavaScript', icon: <Braces className="w-6 h-6 mb-2" /> },
     { name: 'React', icon: <Globe className="w-6 h-6 mb-2" /> },
@@ -67,39 +69,41 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <header className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-gray-50 to-gray-100 text-center">
+      {/* Hero Section with enhanced animations */}
+      <header className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-gray-50 via-blue-50 to-gray-100 text-center animate-gradient-x">
         <div className="max-w-4xl px-4 py-16 flex flex-col items-center">
-          {/* Profile Image */}
-          <img 
-            src="/manali.JPG" 
-            alt="Jatin" 
-            className="w-40 h-40 object-cover rounded-full border-4 border-white shadow-lg"
-          />
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">Jatin</h1>
-          <p className="text-xl text-gray-600 mb-8">AI/ML, Data Engineering & Analytics Enthusiast</p>
+          {/* Profile Image with hover effect */}
+          <div className="transform transition-all duration-300 hover:scale-105">
+            <img 
+              src={profilePic}
+              alt="Jatin pfp" 
+              className="w-40 h-40 object-cover rounded-full border-4 border-white shadow-lg hover:border-blue-400 transition-all duration-300"
+            />
+          </div>
+          <h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 hover:from-blue-600 hover:to-gray-900 transition-all duration-300 mb-6">Jatin</h1>
+          <p className="text-xl text-gray-600 mb-8 hover:text-gray-900 transition-colors duration-300">AI/ML, Data Engineering & Analytics Enthusiast</p>
           <div className="flex justify-center gap-4">
-            <a href="https://github.com/JatinChoudhary1712" className="p-2 text-gray-600 hover:text-gray-900 transition-colors">
+            <a href="https://github.com/JatinChoudhary1712" className="p-2 text-gray-600 hover:text-black hover:scale-110 transform transition-all duration-300">
               <Github size={24} />
             </a>
-            <a href="https://www.linkedin.com/in/jatin-35838032a/" className="p-2 text-gray-600 hover:text-gray-900 transition-colors">
+            <a href="https://www.linkedin.com/in/jatin-35838032a/" className="p-2 text-gray-600 hover:text-blue-600 hover:scale-110 transform transition-all duration-300">
               <Linkedin size={24} />
             </a>
-            <a href="mailto:jatinchoudhary1712@gmail.com" className="p-2 text-gray-600 hover:text-gray-900 transition-colors">
+            <a href="mailto:jatinchoudhary1712@gmail.com" className="p-2 text-gray-600 hover:text-red-600 hover:scale-110 transform transition-all duration-300">
               <Mail size={24} />
             </a>
-            <a href="https://x.com/Jatin9312762270" className="p-2 text-gray-600 hover:text-gray-900 transition-colors">
+            <a href="https://x.com/Jatin9312762270" className="p-2 text-gray-600 hover:text-black hover:scale-110 transform transition-all duration-300">
               <Twitter size={24} />
             </a>
-            <a href="https://discord.com/users/902864383376510987" className="p-2 text-gray-600 hover:text-gray-900 transition-colors">
+            <a href="https://discord.com/users/902864383376510987" className="p-2 text-gray-600 hover:text-indigo-600 hover:scale-110 transform transition-all duration-300">
               <Bot size={24} />
             </a>
           </div>
           <a 
-            href="https://drive.google.com/file/d/1vdTuOvPXjlsv3d4caJTL-s9JGH0XUI5E/view" 
+            href="https://drive.google.com/file/d/1XgMMGK2lpr35qMxkBpLhHuPHA3_Rak_9/view?usp=drive_link" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="mt-6 px-6 py-3 bg-gray-900 text-white rounded-lg font-medium hover:bg-gray-800 transition-colors inline-flex items-center gap-2"
+            className="mt-6 px-6 py-3 bg-gray-900 text-white rounded-lg font-medium hover:bg-gray-800 hover:scale-105 transform transition-all duration-300 inline-flex items-center gap-2 hover:shadow-lg"
           >
             <FileJson size={20} />
             View Resume
@@ -178,76 +182,88 @@ function App() {
         </div>
       </section>
 
-      {/* Projects Section */}
+      {/* Projects Section with enhanced cards */}
       <section className="py-20 px-4 bg-gray-50">
-    <div className="max-w-4xl mx-auto">
-      <div className="flex items-center gap-2 mb-8">
-        <Layout className="text-gray-900" size={24} />
-        <h2 className="text-2xl font-semibold text-gray-900">Projects</h2>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {projects.map((project) => (
-          <div key={project.title} className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-            <img 
-              src={project.image} 
-              alt={project.title}
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-6">
-              <div className="flex items-center gap-2 mb-3">
-                {project.icon}
-                <h3 className="text-lg font-semibold text-gray-900">{project.title}</h3>
-              </div>
-              <p className="text-gray-600 mb-4">{project.description}</p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {project.technologies.map((tech) => (
-                  <span key={tech} className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              <a 
-                href={project.link} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="inline-block px-4 py-2 bg-gray-400 text-white rounded-lg text-sm font-medium hover:bg-black transition-colors"
-              >
-                View Project
-              </a>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-      {/* Skills Section */}
-      <section className="py-20 px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="flex items-center gap-2 mb-8">
-            <Code className="text-gray-900" size={24} />
-            <h2 className="text-2xl font-semibold text-gray-900">Skills</h2>
+          <div className="flex items-center gap-2 mb-8 group">
+            <Layout className="text-gray-900 group-hover:-rotate-12 transition-transform duration-300" size={24} />
+            <h2 className="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600">Projects</h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {skills.map((skill) => (
-              <div key={skill.name} className="bg-white p-6 rounded-lg shadow-sm text-center">
-                {skill.icon}
-                <p className="text-gray-900">{skill.name}</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {projects.map((project) => (
+              <div key={project.title} className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group">
+                <div className="overflow-hidden">
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="w-full h-48 object-cover transform group-hover:scale-110 transition-transform duration-300"
+                  />
+                </div>
+                <div className="p-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="transform group-hover:rotate-12 transition-transform duration-300">
+                      {project.icon}
+                    </div>
+                    <h3 className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600">{project.title}</h3>
+                  </div>
+                  <p className="text-gray-600 mb-4">{project.description}</p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.technologies.map((tech) => (
+                      <span key={tech} className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm hover:bg-gray-900 hover:text-white transform hover:-translate-y-1 transition-all duration-300 cursor-default">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  <a 
+                    href={project.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="inline-block px-4 py-2 bg-gray-400 text-white rounded-lg text-sm font-medium hover:bg-gray-900 transform hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
+                  >
+                    View Project
+                  </a>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Education Section */}
+      {/* Skills Section with enhanced cards */}
       <section className="py-20 px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="flex items-center gap-2 mb-8">
-            <GraduationCap className="text-gray-900" size={24} />
-            <h2 className="text-2xl font-semibold text-gray-900">Education</h2>
+          <div className="flex items-center gap-2 mb-8 group">
+            <Code className="text-gray-900 group-hover:rotate-12 transition-transform duration-300" size={24} />
+            <h2 className="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600">Skills</h2>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <h3 className="text-lg font-semibold text-gray-900">Bachelor of Technology in Computer Science and Engineering</h3>
-            <p className="text-gray-600">Chandigarh Group of Colleges, Landran Mohali  • <b>2021 - 2025</b></p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {skills.map((skill) => (
+              <div key={skill.name} 
+                className="bg-white p-6 rounded-lg shadow-sm hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden"
+              >
+                <div className="relative z-10">
+                  <div className="text-gray-900 group-hover:text-white transition-colors duration-300">
+                    {skill.icon}
+                  </div>
+                  <p className="text-gray-900 group-hover:text-white transition-colors duration-300">{skill.name}</p>
+                </div>
+                <div className="absolute inset-0 bg-gray-900 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-0"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Education Section with enhanced card */}
+      <section className="py-20 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center gap-2 mb-8 group">
+            <GraduationCap className="text-gray-900 group-hover:rotate-12 transition-transform duration-300" size={24} />
+            <h2 className="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600">Education</h2>
+          </div>
+          <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-xl transition-all duration-300 group">
+            <h3 className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 group-hover:from-blue-600 group-hover:to-gray-900">Bachelor of Technology in Computer Science and Engineering</h3>
+            <p className="text-gray-600 group-hover:text-gray-900 transition-colors duration-300">Chandigarh Group of Colleges, Landran Mohali  • <b>2021 - 2025</b></p>
           </div>
         </div>
       </section>

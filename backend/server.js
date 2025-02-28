@@ -1,42 +1,59 @@
-require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const dotenv = require('dotenv');
 const OpenAI = require('openai');
 
+dotenv.config();
+
 const app = express();
+const port = process.env.PORT || 4000;
+
+// Initialize OpenAI
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+});
+
 app.use(cors());
 app.use(express.json());
 
-// Initialize OpenAI with your API key
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok' });
 });
 
-// Create a POST route for chat requests
+// Chat endpoint
 app.post('/api/chat', async (req, res) => {
   try {
-    const userMessage = req.body.message;
+    const { message } = req.body;
 
-    // Make a request to OpenAI
-    const response = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo',
+    const completion = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
       messages: [
-        { role: 'system', content: 'You are a helpful chatbot guiding users through Jatin’s portfolio.' },
-        { role: 'user', content: userMessage },
+        {
+          role: "system",
+          content: "You are Neural J, a helpful AI assistant for Jatin's portfolio website. You can help visitors learn more about Jatin's projects, skills, and experience. Be professional but friendly."
+        },
+        {
+          role: "user",
+          content: message
+        }
       ],
+      max_tokens: 150
     });
 
-    // Note: Access choices directly from response (not response.data)
-    const botReply = response.choices[0].message.content;
-    res.json({ reply: botReply });
+    res.json({ 
+      reply: completion.choices[0].message.content,
+      status: 'success' 
+    });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Something went wrong with the AI service.' });
+    console.error('Error:', error);
+    res.status(500).json({ 
+      error: 'Something went wrong',
+      status: 'error'
+    });
   }
 });
 
-// Start the server
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
