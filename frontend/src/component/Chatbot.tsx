@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRobot } from '@fortawesome/free-solid-svg-icons';
+import { faRobot, faCircle } from '@fortawesome/free-solid-svg-icons';
 import { X } from 'lucide-react'; // Import X icon for close button
 
 interface Message {
@@ -60,23 +60,46 @@ const Chatbot: React.FC = () => {
     return (
       <button
         onClick={() => setIsVisible(true)}
-        className="fixed bottom-4 right-4 bg-black text-white p-4 rounded-full shadow-lg hover:bg-gray-800 transition-colors"
+        className="fixed bottom-4 right-4 p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 group"
+        style={{
+          background: 'linear-gradient(45deg, #1a1a1a, #2d2d2d)',
+        }}
       >
-        <FontAwesomeIcon icon={faRobot} />
+        <div className="relative">
+          <FontAwesomeIcon 
+            icon={faRobot} 
+            className="text-white text-2xl transform transition-transform group-hover:rotate-12"
+          />
+          <span className="absolute -top-1 -right-1 h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+          </span>
+        </div>
       </button>
     );
   }
 
   return (
-    <div className="fixed bottom-4 right-4 bg-white border border-gray-300 shadow-md rounded-lg w-80 p-4">
+    <div className="fixed bottom-4 right-4 bg-white border border-gray-300 shadow-lg rounded-lg w-80 p-4">
       <div className="flex items-center justify-between mb-4">
-        <h1 className='text-xl font-bold flex items-center gap-2'>
-          <FontAwesomeIcon icon={faRobot} className="text-blue-500" />
-          Neural J
+        <h1 className="text-xl font-bold flex items-center gap-2 group">
+          <div className="relative">
+            <FontAwesomeIcon 
+              icon={faRobot} 
+              className="text-blue-500 text-2xl transform transition-transform group-hover:rotate-12"
+            />
+            <span className="absolute -top-1 -right-1 h-3 w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+            </span>
+          </div>
+          <span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
+            Neural J
+          </span>
         </h1>
         <button
           onClick={() => setIsVisible(false)}
-          className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+          className="p-2 hover:bg-gray-100 rounded-full transition-all duration-300 hover:rotate-90"
         >
           <X size={20} />
         </button>
